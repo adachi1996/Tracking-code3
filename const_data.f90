@@ -1,110 +1,115 @@
 module const_data
   implicit none
-  !=====================================================================================================================å…±é€šã®å®šæ•°
-  !--------------------------------------------------------------------å®šæ•°
-  double precision,parameter :: pi   =  3.1415926535d0 !å††å‘¨ç‡
-  double precision,parameter :: m0   =  0.5109989461d0 !é›»å­ã®é™æ­¢è³ªé‡ã‚¨ãƒãƒ«ã‚®ãƒ¼
-  double precision,parameter :: mp0  =  938.2720813d0  !é™½å­ã®é™æ­¢è³ªé‡ã‚¨ãƒãƒ«ã‚®ãƒ¼
-  double precision,parameter :: c    =  2.99792458d8 !å…‰é€Ÿ
-  double precision,parameter :: L1   =  0.190d0*0.5*0.5!çŸ©å½¢é›»ç£çŸ³ã®å¹…ã€€(1/2) [m]
-  double precision,parameter :: L2   =  0.105d0*0.5       !çŸ©å½¢é›»ç£çŸ³ã®å¥¥è¡Œ(1/2) [m]
-  double precision,parameter :: Ls   =  0.03d0         !FDFã®ä¸¦ã³ã®Dã¨Fã®é–“ã®è·é›¢ [m]
-  !=====================================================================================================================ç†æƒ³ç£å ´è»Œé“è¨ˆç®—ç”¨
-  !------------------------------------------------------------------------------------åˆæœŸå€¤
-  double precision,parameter :: t0   =  0.0d0          !åˆæœŸæ™‚é–“ [sec]
-  double precision,parameter :: z0   =  0.0d0          !åˆæœŸz [m]
-  double precision,parameter :: th0  =  0.0d0          !åˆæœŸè§’åº¦ [deg.]
-  double precision,parameter :: r0   =  1.0d0          !åˆæœŸr [m]
-  double precision           :: T    =  0.02d0         !åˆæœŸé‹å‹•ã‚¨ãƒãƒ«ã‚®ãƒ¼ [MeV]
-  !------------------------------------------------------------------------------------å¤‰æ•°Î¸é–¢ä¿‚
-  double precision,parameter :: dth  =  22.5d0         !ä¿å­˜ã™ã‚‹è§’åº¦ [deg.]
-  double precision,parameter :: th_h =  1.0d-4         !åˆ»ã¿å¹… [deg.]
-  !------------------------------------------------------------------------------------ãƒ©ãƒ†ã‚£ã‚¹é–¢ä¿‚
-  double precision           :: beF  =  1.74756690474d0*pi/180.0 !2.8125*pi/180.0 !Fç£çŸ³ã®è¦‹è¾¼ã¿è§’   [deg.]
-  double precision           :: beD  =  2.52758977962d0*pi/180.0 !2.8125*pi/180.0 !Dç£çŸ³ã®è¦‹è¾¼ã¿è§’   [deg.]
-  double precision           :: thF  =  22.5d0          *pi/180.0 !Fç£çŸ³ã§ã®æ›²ã’è§’   [deg.]
-  double precision           :: M    =  2.0d0              !må€¤ [1/m]
-  double precision,parameter :: N    =  16.0d0             !ã‚»ãƒ«æ•°
-  !------------------------------------------------------------------------------------è¨­å®šå€¤
-  double precision,parameter :: eps  =  0.0d0          !æ¼ã‚Œç£å ´ã®åŠã¶è·é›¢ [m]
-  !=====================================================================================================================ç£å ´mapä½¿ç”¨è»Œé“è¨ˆç®—ç”¨
-  !------------------------------------------------------------------------------------åˆæœŸå€¤
-  double precision,parameter :: m_t0   =  0.0d0        !åˆæœŸæ™‚é–“ [sec]
-  double precision           :: m_z0   =  0.0d0        !åˆæœŸz [m]
-  double precision,parameter :: m_th0  =  0.0d0        !åˆæœŸè§’åº¦ [deg.]
-  double precision,parameter :: m_r0   =  1.0d0!4.60!05843361d0!        !åˆæœŸr [m]
-  double precision           :: m_T    =  0.035d0       !åˆæœŸé‹å‹•ã‚¨ãƒãƒ«ã‚®ãƒ¼ [MeV]
-  !------------------------------------------------------------------------------------å¤‰æ•°Î¸é–¢ä¿‚
-  double precision,parameter :: m_dth  =  22.5d0        !ä¿å­˜ã™ã‚‹è§’åº¦ [deg.]
-  double precision,parameter :: m_th_h =  1.0d-4       !åˆ»ã¿å¹… [deg.]
-  double precision,parameter :: sym_th =  22.5         !1ã‚»ãƒ«ã®è§’åº¦
-  !------------------------------------------------------------------------------------åŠ é€Ÿé–¢ä¿‚
-  double precision,parameter :: th_RF  =  180.0d0+5.625d0         !åŠ é€Ÿç©ºæ´ã®è¨­ç½®è§’åº¦(Î¸)
-  double precision,parameter :: th_s   =  16.875d0*pi/180.0         !é€²è¡Œæ–¹å‘ã¸åº§æ¨™å¤‰æ›ã™ã‚‹ãŸã‚ã®è§’åº¦(Î¸s)
-  double precision,parameter :: RF_kV  =  0.2d0         !åŠ é€Ÿé›»åœ§ [kV]
-  !------------------------------------------------------------------------------------é–‰è»Œé“å°å‡ºãƒ—ãƒ­ã‚°ãƒ©ãƒ é–¢ä¿‚
-  double precision,parameter :: cut_z  =  0.305d0        !zã®æŒ¯å‹•ã®é™ç•Œå€¤(ä»»æ„ã®å€¤)
-  !------------------------------------------------------------------------------------èª­ã¿è¾¼ã‚€ç£å ´ãƒãƒƒãƒ—é–¢ä¿‚
-  character(100)             :: file_name1 = 'F[109-095]_171D[085-065]_[FD=273]'
+  !=====================================================================================================================‹¤’Ê‚Ì’è”
+  !--------------------------------------------------------------------’è”
+  double precision,parameter :: pi   =  3.1415926535d0 !‰~ü—¦
+  double precision,parameter :: m0   =  0.5109989461d0 !“dq‚ÌÃ~¿—ÊƒGƒlƒ‹ƒM[
+  double precision,parameter :: mp0  =  938.2720813d0  !—zq‚ÌÃ~¿—ÊƒGƒlƒ‹ƒM[
+  double precision,parameter :: c    =  2.99792458d8 !Œõ‘¬
+  double precision,parameter :: L1   =  0.190d0*0.5*0.5!‹éŒ`“d¥Î‚Ì•@(1/2) [m]
+  double precision,parameter :: L2   =  0.105d0*0.5       !‹éŒ`“d¥Î‚Ì‰œs(1/2) [m]
+  double precision,parameter :: Ls   =  0.03d0         !FDF‚Ì•À‚Ñ‚ÌD‚ÆF‚ÌŠÔ‚Ì‹——£ [m]
+  !=====================================================================================================================—‘z¥ê‹O“¹ŒvZ—p
+  !------------------------------------------------------------------------------------‰Šú’l
+  double precision,parameter :: t0   =  0.0d0          !‰ŠúŠÔ [sec]
+  double precision,parameter :: z0   =  0.0d0          !‰Šúz [m]
+  double precision,parameter :: th0  =  0.0d0          !‰ŠúŠp“x [deg.]
+  double precision,parameter :: r0   =  1.0d0          !‰Šúr [m]
+  double precision           :: T    =  0.02d0         !‰Šú‰^“®ƒGƒlƒ‹ƒM[ [MeV]
+  !------------------------------------------------------------------------------------•Ï”ƒÆŠÖŒW
+  double precision,parameter :: dth  =  22.5d0         !•Û‘¶‚·‚éŠp“x [deg.]
+  double precision,parameter :: th_h =  1.0d-4         !‚İ• [deg.]
+  !------------------------------------------------------------------------------------ƒ‰ƒeƒBƒXŠÖŒW
+  double precision           :: beF  =  1.74756690474d0*pi/180.0 !2.8125*pi/180.0 !F¥Î‚ÌŒ©‚İŠp   [deg.]
+  double precision           :: beD  =  2.52758977962d0*pi/180.0 !2.8125*pi/180.0 !D¥Î‚ÌŒ©‚İŠp   [deg.]
+  double precision           :: thF  =  22.5d0          *pi/180.0 !F¥Î‚Å‚Ì‹È‚°Šp   [deg.]
+  double precision           :: M    =  2.0d0              !m’l [1/m]
+  double precision,parameter :: N    =  16.0d0             !ƒZƒ‹”
+  !------------------------------------------------------------------------------------İ’è’l
+  double precision,parameter :: eps  =  0.0d0          !˜R‚ê¥ê‚Ì‹y‚Ô‹——£ [m]
+  !=====================================================================================================================¥êmapg—p‹O“¹ŒvZ—p
+  !------------------------------------------------------------------------------------‰Šú’l
+  double precision,parameter :: m_t0   =  0.0d0        !‰ŠúŠÔ [sec]
+  double precision,parameter :: m_th0  =  0.0d0        !‰ŠúŠp“x [deg.]
+  double precision,parameter :: m_r0   =  0.99965613d0!4.60!05843361d0!        !‰Šúr [m]
+  double precision           :: m_z0   =  0.13121520d0        !‰Šúz [m]
+  double precision           :: m_T    =  0.034d0       !‰Šú‰^“®ƒGƒlƒ‹ƒM[ [MeV]
+  integer         ,parameter :: select_initial = 1     !“üËŠp“x‚ğw’è‚·‚éê‡‚Í1‚É‚µ‚ÄˆÈ‰º(Pr, Pth, Py)‚ğ“ü—Í‚·‚éB‚»‚¤‚¶‚á‚È‚¢‚È‚ç0
+                                                       !ƒƒ‚Fm=2, alpha=1.75, T=34 [keV]‚Ì“üËğŒ
+  double precision,parameter :: m_pr0  =  0.14024685d-5        !‰ŠúPr  [MeV/c]
+  double precision,parameter :: m_pth0 =  0.18948332d0        !‰ŠúPth [MeV/c]
+  double precision,parameter :: m_py0  =  -0.14068484d-4        !‰ŠúPy  [MeV/c]
+  !------------------------------------------------------------------------------------•Ï”ƒÆŠÖŒW
+  double precision,parameter :: m_dth  =  22.5d0        !•Û‘¶‚·‚éŠp“x [deg.]
+  double precision,parameter :: m_th_h =  1.0d-4       !‚İ• [deg.]
+  double precision,parameter :: sym_th =  22.5         !1ƒZƒ‹‚ÌŠp“x
+  !------------------------------------------------------------------------------------‰Á‘¬ŠÖŒW
+  double precision,parameter :: th_RF  =  180.0d0+5.625d0         !‰Á‘¬‹ó“´‚Ìİ’uŠp“x(ƒÆ)
+  double precision,parameter :: th_s   =  16.875d0*pi/180.0         !is•ûŒü‚ÖÀ•W•ÏŠ·‚·‚é‚½‚ß‚ÌŠp“x(ƒÆs)
+  double precision,parameter :: RF_kV  =  0.0d0         !‰Á‘¬“dˆ³ [kV]
+  !------------------------------------------------------------------------------------•Â‹O“¹“±oƒvƒƒOƒ‰ƒ€ŠÖŒW
+  double precision,parameter :: cut_z  =  0.305d0        !z‚ÌU“®‚ÌŒÀŠE’l(”CˆÓ‚Ì’l)
+  !------------------------------------------------------------------------------------“Ç‚İ‚Ş¥êƒ}ƒbƒvŠÖŒW
+  character(100)             :: file_name1 = 'F[109-095]_175D[085-065]_[FD=273]'
   character(100)             :: file_name2 = '_[11exp(-2z)]_[str+arc]_[type1]'
   character(100)             :: path_name  = 'C:\Users\Kyosuke adachi\Desktop\FORTRAN_SPACE\map_data\'
-  character(100)             :: file_name3 = 'Closed_orbit_file_3'
-  character(100)             :: path_name2 = 'C:\Users\Kyosuke adachi\Desktop\'
-  !=====================================================================================================================å…±é€šã®è¨­å®šå€¤
-  !------------------------------------------------------------------------------------ã—ã‚‰ã¿ã¤ã¶ã—
-  double precision,parameter :: num  = 10              !å›æ•°
-  double precision           :: dk   = 0.001d0         !åˆæœŸåˆ»ã¿å¹…
-  !------------------------------------------------------------------------------------æ¡ä»¶
-  double precision,parameter :: rev  =  3.0/1.0d0        !å‘¨å›æ•°
-  double precision,parameter :: dr   =  0.0d0          !åˆæœŸå€¤ã‹ã‚‰ã®ãšã‚Œ
-  double precision,parameter :: dz   =  0.0d0          !åˆæœŸå€¤ã‹ã‚‰ã®ãšã‚Œ
-  double precision,parameter :: q    = -1.0d0          !é›»è·(+1 or -1)
-  character(100)             :: save_name  = 'test.csv'
-  !=====================================================================================================================æ©Ÿèƒ½é¸æŠ
-  !ãƒˆãƒ©ãƒƒã‚­ãƒ³ã‚°å½¢å¼ã®é¸æŠ      1:é€šå¸¸ãƒˆãƒ©ãƒƒã‚­ãƒ³ã‚° 2:ã—ã‚‰ã¿ã¤ã¶ã—       3:ã‚¢ã‚¯ã‚»ãƒ—ã‚¿ãƒ³ã‚¹          4:ç£å ´ãƒãƒƒãƒ—ä½¿ç”¨    5:m-thFå®‰å®šé ˜åŸŸ
+  character(100)             :: file_name3 = 'alpha=175_m=2_CO'
+  character(100)             :: path_name2 = 'C:\Users\Kyosuke adachi\Desktop\FORTRAN_SPACE\20200729\aceeleration_test3\'
+  !=====================================================================================================================‹¤’Ê‚Ìİ’è’l
+  !------------------------------------------------------------------------------------‚µ‚ç‚İ‚Â‚Ô‚µ
+  double precision,parameter :: num  = 10              !‰ñ”
+  double precision           :: dk   = 0.001d0         !‰Šú‚İ•
+  !------------------------------------------------------------------------------------ğŒ
+  double precision,parameter :: rev  =  500.0/1.0d0        !ü‰ñ”
+  double precision,parameter :: dr   =  0.0d0          !‰Šú’l‚©‚ç‚Ì‚¸‚ê
+  double precision,parameter :: dz   =  0.0d0          !‰Šú’l‚©‚ç‚Ì‚¸‚ê
+  double precision,parameter :: q    = -1.0d0          !“d‰×(+1 or -1)
+  character(100)             :: save_name  = 'm=2_500V_72.csv'
+  !=====================================================================================================================‹@”\‘I‘ğ
+  !ƒgƒ‰ƒbƒLƒ“ƒOŒ`®‚Ì‘I‘ğ      1:’Êíƒgƒ‰ƒbƒLƒ“ƒO 2:‚µ‚ç‚İ‚Â‚Ô‚µ       3:ƒAƒNƒZƒvƒ^ƒ“ƒX          4:¥êƒ}ƒbƒvg—p    5:m-thFˆÀ’è—Ìˆæ
   integer,parameter :: select_tracking = 4
-  !ç£å ´ãƒãƒƒãƒ—ä½¿ç”¨æ™‚ã®æ©Ÿèƒ½é¸æŠ(è©³ã—ã„èª¬æ˜ã¯map_trackiã‚’å‚ç…§)
-  !                          1:é€šå¸¸ãƒˆãƒ©ãƒƒã‚­ãƒ³ã‚° 2:è¤‡æ•°é‹å‹•ã‚¨ãƒãƒ«ã‚®ãƒ¼  3:ç£å ´ãƒãƒƒãƒ—ç”Ÿæˆ(åº§æ¨™å¤‰æ›)
-  !                          4:å‚ç›´FFAGç”¨é–‰è»Œé“å°å‡ºè¨ˆç®—(ä½ç½®ã®ã¿ã®ã—ã‚‰ã¿ã¤ã¶ã—)    5:å‚ç›´FFAGç”¨é–‰è»Œé“å°å‡ºè¨ˆç®—(è§’åº¦å«ã‚€ã—ã‚‰ã¿ã¤ã¶ã—)
-  !                          6:å‚ç›´FFAGç”¨é–‰è»Œé“å°å‡ºè¨ˆç®—(æ¥•å††ä¸­å¿ƒã‹ã‚‰æ±‚ã‚ã‚‹ã‚¿ã‚¤ãƒ—)ã€€7:è¤‡æ•°ã‚¨ãƒãƒ«ã‚®ãƒ¼è¨ˆç®—ç”¨
-  integer,parameter :: select_func     = 1
-  !ç†æƒ³çš„é›»ç£çŸ³å½¢çŠ¶ã®é¸æŠ      1:Sector           2:Lectangular        3:Radial sector    4:FDFãƒˆãƒªãƒ—ãƒ¬ãƒƒãƒˆ
+  !¥êƒ}ƒbƒvg—p‚Ì‹@”\‘I‘ğ(Ú‚µ‚¢à–¾‚Ímap_tracki‚ğQÆ)
+  !                          1:’Êíƒgƒ‰ƒbƒLƒ“ƒO 2:•¡”‰^“®ƒGƒlƒ‹ƒM[  3:¥êƒ}ƒbƒv¶¬(À•W•ÏŠ·)
+  !                          4:‚’¼FFAG—p•Â‹O“¹“±oŒvZ(ˆÊ’u‚Ì‚İ‚Ì‚µ‚ç‚İ‚Â‚Ô‚µ)    5:‚’¼FFAG—p•Â‹O“¹“±oŒvZ(Šp“xŠÜ‚Ş‚µ‚ç‚İ‚Â‚Ô‚µ)
+  !                          6:‚’¼FFAG—p•Â‹O“¹“±oŒvZ(‘È‰~’†S‚©‚ç‹‚ß‚éƒ^ƒCƒv)@7:•¡”ƒGƒlƒ‹ƒM[ŒvZ—p
+  integer,parameter :: select_func     = 7
+  !—‘z“I“d¥ÎŒ`ó‚Ì‘I‘ğ      1:Sector           2:Lectangular        3:Radial sector    4:FDFƒgƒŠƒvƒŒƒbƒg
   integer,parameter :: select_B        = 1
-  !FFAGã‚¿ã‚¤ãƒ—ã®é¸æŠ      1:æ°´å¹³FFAGåŠ é€Ÿå™¨         2:å‚ç›´FFAGåŠ é€Ÿå™¨
+  !FFAGƒ^ƒCƒv‚Ì‘I‘ğ      1:…•½FFAG‰Á‘¬Ší         2:‚’¼FFAG‰Á‘¬Ší
   integer,parameter :: select_FFAG     = 2
 
-  !=====================================================================================================================å¤‰æ•°
-  double precision :: pth                       !è§’åº¦æ–¹å‘ã®é‹å‹•é‡
-  double precision :: r1      ,r2      ,r3      !å„è»Œé“ä½ç½®
-  double precision :: beF_rec ,beD_rec ,beS_rec !çŸ©å½¢é›»ç£çŸ³ã®è¦‹è¾¼ã¿è§’
-  double precision :: roF     ,roD     ,RF      !æ›²ç‡åŠå¾„ã¨Fç£çŸ³ã§ã®å¹³å‡åŠå¾„
-  double precision :: BF      ,BD      ,RD      !Fã¨Dç£å ´ã¨Dç£çŸ³ã§ã®å¹³å‡åŠå¾„
-  double precision :: Br      ,Bth     ,Bz      !å„ç£å ´æˆåˆ†(r,th,z)
-  double precision :: thD     ,thF_rec ,thD_rec !æ›²ã’è§’
-  double precision :: theta   ,r_beta  ,gamma   !1cellä¸­ã®è§’åº¦ã¨æ¯”é€Ÿåº¦ã¨Î³
-  double precision :: r_min   ,th_min  ,z_min   !ç£å ´ãƒãƒƒãƒ—ã®å„ãƒ‡ãƒ¼ã‚¿ã®æœ€å°å€¤
-  double precision :: drt_r   ,drt_th  ,drt_z   !ç£å ´ãƒãƒƒãƒ—ã®å„ãƒ‡ãƒ¼ã‚¿ã®åˆ»ã¿å¹…
-  double precision :: beta  = (180.0d0/N)*(pi/180.0) !1/2cellã®è¦‹è¾¼ã¿è§’ [deg.]
+  !=====================================================================================================================•Ï”
+  double precision :: pth                       !Šp“x•ûŒü‚Ì‰^“®—Ê
+  double precision :: r1      ,r2      ,r3      !Še‹O“¹ˆÊ’u
+  double precision :: beF_rec ,beD_rec ,beS_rec !‹éŒ`“d¥Î‚ÌŒ©‚İŠp
+  double precision :: roF     ,roD     ,RF      !‹È—¦”¼Œa‚ÆF¥Î‚Å‚Ì•½‹Ï”¼Œa
+  double precision :: BF      ,BD      ,RD      !F‚ÆD¥ê‚ÆD¥Î‚Å‚Ì•½‹Ï”¼Œa
+  double precision :: Br      ,Bth     ,Bz      !Še¥ê¬•ª(r,th,z)
+  double precision :: thD     ,thF_rec ,thD_rec !‹È‚°Šp
+  double precision :: theta   ,r_beta  ,gamma   !1cell’†‚ÌŠp“x‚Æ”ä‘¬“x‚ÆƒÁ
+  double precision :: r_min   ,th_min  ,z_min   !¥êƒ}ƒbƒv‚ÌŠeƒf[ƒ^‚ÌÅ¬’l
+  double precision :: drt_r   ,drt_th  ,drt_z   !¥êƒ}ƒbƒv‚ÌŠeƒf[ƒ^‚Ì‚İ•
+  double precision :: beta  = (180.0d0/N)*(pi/180.0) !1/2cell‚ÌŒ©‚İŠp [deg.]
   double precision :: temp_th_max !
   double precision :: temp_r_max , temp_z_max , temp_pth_max , temp_pz_max!
-  integer          :: check = 0                 !è¨ˆç®—çµ‚äº†ã®åˆ¤å®šç”¨
+  integer          :: check = 0                 !ŒvZI—¹‚Ì”»’è—p
   character        :: filename1*128
   character        :: filename2*128
 
-  !FDFãƒˆãƒªãƒ—ãƒ¬ãƒƒãƒˆç”¨ã®å¤‰æ•°
+  !FDFƒgƒŠƒvƒŒƒbƒg—p‚Ì•Ï”
   double precision :: r0p     ,roDp    ,Ldr     !
   double precision :: Lpp     ,Lppp    !
   double precision :: beF_FDF ,beS_FDF ,beD_FDF !
 
-  !ç£å ´ãƒãƒƒãƒ—ä½¿ç”¨æ™‚ã®é™æ­¢è³ªé‡ã‚¨ãƒãƒ«ã‚®ãƒ¼(æ°´å¹³FFAGåŠ é€Ÿå™¨ã¯é™½å­ã€å‚ç›´FFAGåŠ é€Ÿå™¨ã¯é›»å­)
+  !¥êƒ}ƒbƒvg—p‚ÌÃ~¿—ÊƒGƒlƒ‹ƒM[(…•½FFAG‰Á‘¬Ší‚Í—zqA‚’¼FFAG‰Á‘¬Ší‚Í“dq)
   double precision :: m_m0
 
-  !è¨ˆç®—çµæœã‚’å…¥ã‚Œã¦ã„ãé…åˆ— [t,th,r,z,pr,pth,pz, Br, Bth, Bz]
+  !ŒvZŒ‹‰Ê‚ğ“ü‚ê‚Ä‚¢‚­”z—ñ [t,th,r,z,pr,pth,pz, Br, Bth, Bz]
   double precision :: particle(10) = (/t0 ,th0 ,r0+dr ,z0+dz ,0.0d0 ,0.0d0 ,0.0d0 ,0.0d0 ,0.0d0 ,0.0d0/)
-  double precision :: max_deg = rev*360.0 + th_h !æœ€å¤§è§’åº¦
-  double precision :: h  !åˆ»ã¿å¹…
+  double precision :: max_deg = rev*360.0 + th_h !Å‘åŠp“x
+  double precision :: h  !‚İ•
 
-  !èª­ã¿è¾¼ã‚“ã ç£å ´ãƒãƒƒãƒ—ã‚’å…¥ã‚Œã‚‹é…åˆ—(ãƒã‚¤ãƒ³ã‚¿)
+  !“Ç‚İ‚ñ‚¾¥êƒ}ƒbƒv‚ğ“ü‚ê‚é”z—ñ(ƒ|ƒCƒ“ƒ^)
   double precision, pointer, dimension(:)       :: r_data
   double precision, pointer, dimension(:)       :: th_data
   double precision, pointer, dimension(:)       :: z_data
