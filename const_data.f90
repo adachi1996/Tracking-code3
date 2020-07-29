@@ -35,9 +35,13 @@ module const_data
   double precision,parameter :: m_r0   =  1.0d0!4.60!05843361d0!        !初期r [m]
   double precision           :: m_T    =  0.035d0       !初期運動エネルギー [MeV]
   !------------------------------------------------------------------------------------変数θ関係
-  double precision,parameter :: m_dth  =  0.5d0        !保存する角度 [deg.]
+  double precision,parameter :: m_dth  =  22.5d0        !保存する角度 [deg.]
   double precision,parameter :: m_th_h =  1.0d-4       !刻み幅 [deg.]
   double precision,parameter :: sym_th =  22.5         !1セルの角度
+  !------------------------------------------------------------------------------------加速関係
+  double precision,parameter :: th_RF  =  180.0d0+5.625d0         !加速空洞の設置角度(θ)
+  double precision,parameter :: th_s   =  16.875d0*pi/180.0         !進行方向へ座標変換するための角度(θs)
+  double precision,parameter :: RF_kV  =  0.2d0         !加速電圧 [kV]
   !------------------------------------------------------------------------------------閉軌道導出プログラム関係
   double precision,parameter :: cut_z  =  0.305d0        !zの振動の限界値(任意の値)
   !------------------------------------------------------------------------------------読み込む磁場マップ関係
@@ -58,7 +62,7 @@ module const_data
   character(100)             :: save_name  = 'test.csv'
   !=====================================================================================================================機能選択
   !トラッキング形式の選択      1:通常トラッキング 2:しらみつぶし       3:アクセプタンス          4:磁場マップ使用    5:m-thF安定領域
-  integer,parameter :: select_tracking = 1
+  integer,parameter :: select_tracking = 4
   !磁場マップ使用時の機能選択(詳しい説明はmap_trackiを参照)
   !                          1:通常トラッキング 2:複数運動エネルギー  3:磁場マップ生成(座標変換)
   !                          4:垂直FFAG用閉軌道導出計算(位置のみのしらみつぶし)    5:垂直FFAG用閉軌道導出計算(角度含むしらみつぶし)
