@@ -22,7 +22,7 @@ module const_data
   !------------------------------------------------------------------------------------ラティス関係
   double precision           :: beF  =  1.74756690474d0*pi/180.0 !2.8125*pi/180.0 !F磁石の見込み角   [deg.]
   double precision           :: beD  =  2.52758977962d0*pi/180.0 !2.8125*pi/180.0 !D磁石の見込み角   [deg.]
-  double precision           :: thF  =  22.5d0          *pi/180.0 !F磁石での曲げ角   [deg.]
+  double precision           :: thF  =  22.5d0          *pi/180.0 !F磁石での曲げ角
   double precision           :: M    =  2.0d0              !m値 [1/m]
   double precision,parameter :: N    =  16.0d0             !セル数
   !------------------------------------------------------------------------------------設定値
@@ -31,14 +31,14 @@ module const_data
   !------------------------------------------------------------------------------------初期値
   double precision,parameter :: m_t0   =  0.0d0        !初期時間 [sec]
   double precision,parameter :: m_th0  =  0.0d0        !初期角度 [deg.]
-  double precision,parameter :: m_r0   =  0.99965613d0!4.60!05843361d0!        !初期r [m]
-  double precision           :: m_z0   =  0.13121520d0        !初期z [m]
-  double precision           :: m_T    =  0.034d0       !初期運動エネルギー [MeV]
+  double precision,parameter :: m_r0   =  0.99756891d0!4.60!05843361d0!        !初期r [m]
+  double precision           :: m_z0   =  0.14116665d0        !初期z [m]
+  double precision           :: m_T    =  0.026d0       !初期運動エネルギー [MeV]
   integer         ,parameter :: select_initial = 1     !入射角度を指定する場合は1にして以下(Pr, Pth, Py)を入力する。そうじゃないなら0
-                                                       !メモ：m=2, alpha=1.75, T=34 [keV]の入射条件
-  double precision,parameter :: m_pr0  =  0.14024685d-5        !初期Pr  [MeV/c]
-  double precision,parameter :: m_pth0 =  0.18948332d0        !初期Pth [MeV/c]
-  double precision,parameter :: m_py0  =  -0.14068484d-4        !初期Py  [MeV/c]
+                                                       !メモ：m=2, alpha=1.71, T=26 [keV]の入射条件
+  double precision,parameter :: m_pr0  =  0.44934438d-4        !初期Pr  [MeV/c]
+  double precision,parameter :: m_pth0 =  0.16506950d0        !初期Pth [MeV/c]
+  double precision,parameter :: m_py0  =  0.55750822d-4        !初期Py  [MeV/c]
   !------------------------------------------------------------------------------------変数θ関係
   double precision,parameter :: m_dth  =  22.5d0        !保存する角度 [deg.]
   double precision,parameter :: m_th_h =  1.0d-4       !刻み幅 [deg.]
@@ -48,23 +48,29 @@ module const_data
   double precision,parameter :: th_s   =  16.875d0*pi/180.0         !進行方向へ座標変換するための角度(θs)
   double precision,parameter :: RF_kV  =  0.0d0         !加速電圧 [kV]
   !------------------------------------------------------------------------------------閉軌道導出プログラム関係
-  double precision,parameter :: cut_z  =  0.305d0        !zの振動の限界値(任意の値)
+  double precision,parameter :: cut_z  =  0.24d0        !zの振動の限界値(任意の値)
   !------------------------------------------------------------------------------------読み込む磁場マップ関係
   character(100)             :: file_name1 = 'F[109-095]_175D[085-065]_[FD=273]'
   character(100)             :: file_name2 = '_[11exp(-2z)]_[str+arc]_[type1]'
   character(100)             :: path_name  = 'C:\Users\Kyosuke adachi\Desktop\FORTRAN_SPACE\map_data\'
-  character(100)             :: file_name3 = 'alpha=175_m=2_CO'
-  character(100)             :: path_name2 = 'C:\Users\Kyosuke adachi\Desktop\FORTRAN_SPACE\20200729\aceeleration_test3\'
+  character(100)             :: file_name3 = 'Closed_orbit_file_3'
+  character(100)             :: path_name2 = 'C:\Users\Kyosuke adachi\Desktop\'
   !=====================================================================================================================共通の設定値
-  !------------------------------------------------------------------------------------しらみつぶし
-  double precision,parameter :: num  = 10              !回数
+  !------------------------------------------------------------------------------------楕円中心から次の入射条件を求める回数
+  integer,parameter          :: set_num  = 10            !回数
+  double precision,parameter :: set_T0   = 20.0d0
+  double precision,parameter :: set_T1   = 70.0d0
+  double precision,parameter :: set_dT   = 2.0d0
+  double precision,parameter :: set_rev  = 50.0d0
+  character(100)             :: set_name = '20200801_m=2'
+  !------------------------------------------------------------------------------------しらみつぶし(使っていない)
   double precision           :: dk   = 0.001d0         !初期刻み幅
   !------------------------------------------------------------------------------------条件
-  double precision,parameter :: rev  =  500.0/1.0d0        !周回数
+  double precision,parameter :: rev  =  2.0/1.0d0      !周回数
   double precision,parameter :: dr   =  0.0d0          !初期値からのずれ
   double precision,parameter :: dz   =  0.0d0          !初期値からのずれ
   double precision,parameter :: q    = -1.0d0          !電荷(+1 or -1)
-  character(100)             :: save_name  = 'm=2_500V_72.csv'
+  character(100)             :: save_name  = 'test.csv'
   !=====================================================================================================================機能選択
   !トラッキング形式の選択      1:通常トラッキング 2:しらみつぶし       3:アクセプタンス          4:磁場マップ使用    5:m-thF安定領域
   integer,parameter :: select_tracking = 4
@@ -72,7 +78,7 @@ module const_data
   !                          1:通常トラッキング 2:複数運動エネルギー  3:磁場マップ生成(座標変換)
   !                          4:垂直FFAG用閉軌道導出計算(位置のみのしらみつぶし)    5:垂直FFAG用閉軌道導出計算(角度含むしらみつぶし)
   !                          6:垂直FFAG用閉軌道導出計算(楕円中心から求めるタイプ)　7:複数エネルギー計算用
-  integer,parameter :: select_func     = 7
+  integer,parameter :: select_func     = 6
   !理想的電磁石形状の選択      1:Sector           2:Lectangular        3:Radial sector    4:FDFトリプレット
   integer,parameter :: select_B        = 1
   !FFAGタイプの選択      1:水平FFAG加速器         2:垂直FFAG加速器
@@ -106,7 +112,7 @@ module const_data
 
   !計算結果を入れていく配列 [t,th,r,z,pr,pth,pz, Br, Bth, Bz]
   double precision :: particle(10) = (/t0 ,th0 ,r0+dr ,z0+dz ,0.0d0 ,0.0d0 ,0.0d0 ,0.0d0 ,0.0d0 ,0.0d0/)
-  double precision :: max_deg = rev*360.0 + th_h !最大角度
+  double precision :: max_deg = rev*360.0d0 !最大角度
   double precision :: h  !刻み幅
 
   !読み込んだ磁場マップを入れる配列(ポインタ)
